@@ -1,92 +1,32 @@
-# skillingchampion README
+# Skilling Champion Creator ID Verifier
 
-This is the README for your extension "skillingchampion". After writing up a brief description, we recommend including the following sections.
+This project is created for all who write markdown files and want to add their Creator ID to the URLs. This project is primarily created in order to learn how to create Visual Studio Code extensions, but also to actually add value.
 
-## Features
+There are three milestones:
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Be able to detect links to Microsoft website in Markdown that do not have a Creator ID
+- Automatically add the Creator ID on click
+- Be able to save your Creator ID in settings
 
-For example if there is an image subfolder under your extension project workspace:
+# Targets
 
-\!\[feature X\]\(images/feature-x.png\)
+Links to the folowing website should contain a Creator ID:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- social.technet.microsoft.com
+- azure.microsoft.com
+- techcommunity.microsoft.com
+- social.msdn.microsoft.com
+- devblogs.microsoft.com
+- developer.microsoft.com
+- channel9.msdn.com
+- gallery.technet.microsoft.com
+- cloudblogs.microsoft.com
+- technet.microsoft.com
+- docs.azure.cn
+- www.azure.cn
+- msdn.microsoft.com
+- blogs.msdn.microsoft.com
+- blogs.technet.microsoft.com
+- microsoft.com/handsonlabs
 
-if
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-- `myExtension.enable`: Enable/disable this extension.
-- `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-- Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-- Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
-
-Microsoft Azure
-
-?WT.mc_id=AZ-MVP-5003924
-
-Developer Technologies
-
-?WT.mc_id=DT-MVP-5003924
-
-// social.technet.microsoft.com
-// azure.microsoft.com
-// techcommunity.microsoft.com
-// social.msdn.microsoft.com
-// devblogs.microsoft.com
-// developer.microsoft.com
-// channel9.msdn.com
-// gallery.technet.microsoft.com
-// cloudblogs.microsoft.com
-// technet.microsoft.com
-// docs.azure.cn
-// www.azure.cn
-// msdn.microsoft.com
-// blogs.msdn.microsoft.com
-// blogs.technet.microsoft.com
-// microsoft.com/handsonlabs
+A creator ID is basically adding a querystring parameter with the name `WT.mc_id` and a value (the Creator ID, that looks like `{XX}-{YYY}-{ZZZZZZZZ}` where XX is the technology area you are recognized for. YYY is the type of award you received, for example MVP. ZZZ Is your unique identification number)
