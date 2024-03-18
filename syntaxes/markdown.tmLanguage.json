@@ -1,0 +1,33 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "MarkDown",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+
+		"mcid-keyword":		{
+			"match": "WT\\.mc_id=[A-Z]{2,3}-[A-Z]{2,3}-[0-9]{5,8}",
+			"name": "keyword.mcid.markdown"
+		},
+		"strings": {
+			"name": "string.parenthesis.double.markdown",
+			"begin": "\\[",
+			"end": "\\]",
+			"patterns": [
+				{
+					"name": "constant.character.escape.markdown",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	
+	"scopeName": "source.markdown"
+}
+
