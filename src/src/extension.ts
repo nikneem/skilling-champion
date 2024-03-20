@@ -5,7 +5,8 @@ import {
   subscribeToDocumentChanges,
 } from "./diagnostics";
 
-const COMMAND = "code-actions-sample.command";
+const COMMAND = "skilling-champion.learnMore";
+
 let skillingChampion = vscode.window.createOutputChannel("skillingChampion");
 export function activate(context: vscode.ExtensionContext) {
   // Example: Reading Window scoped configuration
@@ -49,58 +50,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMAND, () =>
-      vscode.env.openExternal(
-        vscode.Uri.parse(
-          "https://unicode.org/emoji/charts-12.0/full-emoji-list.html"
-        )
-      )
+      vscode.env.openExternal(vscode.Uri.parse("https://mvp.microsoft.com/"))
     )
   );
-
-  // if (vscode.window.activeTextEditor) {
-  //   updateDiagnostics(vscode.window.activeTextEditor.document, collection);
-  // }
-  // context.subscriptions.push(
-  //   vscode.window.onDidChangeActiveTextEditor((editor) => {
-  //     if (editor) {
-  //       updateDiagnostics(editor.document, collection);
-  //     }
-  //   })
-  // );
-}
-
-function updateDiagnostics(
-  document: vscode.TextDocument,
-  collection: vscode.DiagnosticCollection
-): void {
-  if (document) {
-    collection.set(document.uri, [
-      {
-        code: "",
-        message: "cannot assign twice to immutable variable `x`",
-        range: new vscode.Range(
-          new vscode.Position(3, 4),
-          new vscode.Position(3, 10)
-        ),
-        severity: vscode.DiagnosticSeverity.Error,
-        source: "",
-        relatedInformation: [
-          new vscode.DiagnosticRelatedInformation(
-            new vscode.Location(
-              document.uri,
-              new vscode.Range(
-                new vscode.Position(1, 8),
-                new vscode.Position(1, 9)
-              )
-            ),
-            "first assignment to `x`"
-          ),
-        ],
-      },
-    ]);
-  } else {
-    collection.clear();
-  }
 }
 
 /**
@@ -183,13 +135,13 @@ export class SkillingChampionizer implements vscode.CodeActionProvider {
 
   private createCommand(): vscode.CodeAction {
     const action = new vscode.CodeAction(
-      "Learn more...",
+      "Microsoft MVP Program",
       vscode.CodeActionKind.Empty
     );
     action.command = {
       command: COMMAND,
-      title: "Learn more about emojis",
-      tooltip: "This will open the unicode emoji page.",
+      title: "Microsoft MVP Program",
+      tooltip: "Learn more about the Microsoft MVP Program.",
     };
     return action;
   }
@@ -216,13 +168,13 @@ export class SkillingChampionInfo implements vscode.CodeActionProvider {
     diagnostic: vscode.Diagnostic
   ): vscode.CodeAction {
     const action = new vscode.CodeAction(
-      "Learn more...",
+      "Microsoft MVP Program",
       vscode.CodeActionKind.QuickFix
     );
     action.command = {
       command: COMMAND,
-      title: "Learn more about emojis",
-      tooltip: "This will open the unicode emoji page.",
+      title: "Microsoft MVP Program",
+      tooltip: "Learn more about the Microsoft MVP Program.",
     };
     action.diagnostics = [diagnostic];
     action.isPreferred = true;
