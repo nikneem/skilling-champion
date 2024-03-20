@@ -8,8 +8,6 @@ When writing your blog, article or other content in markdown, and you link to on
 
 ![Automatically add your skilling champion ID](images/demo-animation.gif)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
 ## Extension Settings
 
 This extension contributes the following settings:
