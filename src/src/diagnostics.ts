@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
-export const EMOJI_MENTION = "emoji_mention";
-
-/** String to detect in the text document. */
-const EMOJI = "emoji";
+export const SKILLING_CHAMPION_MENTION = "skillingchampion_mention";
+export const SKILLING_CHAMPION_REGEX =
+  /((?!.*WT.mc_id=[A-Z0-9]{1,5}-[A-Z]{1,3}-[0-9]{6,8})(?<Protocol>\w{2,6}):\/\/(?<Domain>social.technet.microsoft.com|azure.microsoft.com|techcommunity.microsoft.com|social.msdn.microsoft.com|devblogs.microsoft.com|developer.microsoft.com|channel9.msdn.com|gallery.technet.microsoft.com|cloudblogs.microsoft.com|technet.microsoft.com|docs.azure.cn|www.azure.cn|msdn.microsoft.com|blogs.msdn.microsoft.com|blogs.technet.microsoft.com|microsoft.com\/handsonlabs)(?<Path>\/?[\w.?=%&=\-@\/$,]*))/;
 
 /**
  * Analyzes the text document for problems.
@@ -18,8 +17,9 @@ export function refreshDiagnostics(
 
   for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
     const lineOfText = doc.lineAt(lineIndex);
-    if (lineOfText.text.includes(EMOJI)) {
-      diagnostics.push(createDiagnostic(doc, lineOfText, lineIndex));
+    const matches = lineOfText.text.match(SKILLING_CHAMPION_REGEX);
+    if (matches) {
+      diagnostics.push(createDiagnostic(doc, lineOfText, lineIndex, matches));
     }
   }
 
@@ -29,25 +29,26 @@ export function refreshDiagnostics(
 function createDiagnostic(
   doc: vscode.TextDocument,
   lineOfText: vscode.TextLine,
-  lineIndex: number
+  lineIndex: number,
+  matches: RegExpMatchArray
 ): vscode.Diagnostic {
-  // find where in the line of that the 'emoji' is mentioned
-  const index = lineOfText.text.indexOf(EMOJI);
+  const match = matches[0];
+  const index = lineOfText.text.indexOf(match);
 
   // create range that represents, where in the document the word is
   const range = new vscode.Range(
     lineIndex,
     index,
     lineIndex,
-    index + EMOJI.length
+    index + match.length
   );
 
   const diagnostic = new vscode.Diagnostic(
     range,
-    "When you say 'emoji', do you want to find out more?",
-    vscode.DiagnosticSeverity.Information
+    "Add your Skilling Champion Creator ID to the URL.",
+    vscode.DiagnosticSeverity.Warning
   );
-  diagnostic.code = EMOJI_MENTION;
+  diagnostic.code = SKILLING_CHAMPION_MENTION;
   return diagnostic;
 }
 

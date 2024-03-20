@@ -1,5 +1,9 @@
 import * as vscode from "vscode";
-import { EMOJI_MENTION, subscribeToDocumentChanges } from "./diagnostics";
+import {
+  SKILLING_CHAMPION_MENTION,
+  SKILLING_CHAMPION_REGEX,
+  subscribeToDocumentChanges,
+} from "./diagnostics";
 
 const COMMAND = "code-actions-sample.command";
 let skillingChampion = vscode.window.createOutputChannel("skillingChampion");
@@ -7,10 +11,10 @@ export function activate(context: vscode.ExtensionContext) {
   // Example: Reading Window scoped configuration
   const skillingChampionEnabled = vscode.workspace
     .getConfiguration()
-    .get("conf.skillingChampion.enable");
+    .get("skillingChampion.enable");
   const skillingChampionCreatorId = vscode.workspace
     .getConfiguration()
-    .get("conf.skillingChampion.creatorId");
+    .get("skillingChampion.creatorId");
 
   skillingChampion.appendLine(
     `skillingChampionEnabled ${skillingChampionEnabled} with creatorId ${skillingChampionCreatorId}`
@@ -34,9 +38,13 @@ export function activate(context: vscode.ExtensionContext) {
   subscribeToDocumentChanges(context, skillingChampionDiagnostics);
 
   context.subscriptions.push(
-    vscode.languages.registerCodeActionsProvider("markdown", new Emojinfo(), {
-      providedCodeActionKinds: Emojinfo.providedCodeActionKinds,
-    })
+    vscode.languages.registerCodeActionsProvider(
+      "markdown",
+      new SkillingChampionInfo(),
+      {
+        providedCodeActionKinds: SkillingChampionInfo.providedCodeActionKinds,
+      }
+    )
   );
 
   context.subscriptions.push(
@@ -112,58 +120,64 @@ export class SkillingChampionizer implements vscode.CodeActionProvider {
       return;
     }
 
-    const replaceWithSmileyCatFix = this.createFix(document, range, "😺");
+    const skillingChampionCreatorId = vscode.workspace
+      .getConfiguration()
+      .get("skillingChampion.creatorId") as string | undefined;
 
-    const replaceWithSmileyFix = this.createFix(document, range, "😀");
-    // Marking a single fix as `preferred` means that users can apply it with a
-    // single keyboard shortcut using the `Auto Fix` command.
-    replaceWithSmileyFix.isPreferred = true;
+    const actions = [];
 
-    const replaceWithSmileyHankyFix = this.createFix(document, range, "💩");
-
+    if (skillingChampionCreatorId) {
+      const ids = skillingChampionCreatorId.split(";");
+      ids.forEach((id) => {
+        actions.push(this.createFix(document, range, id));
+      });
+    }
     const commandAction = this.createCommand();
+    actions.push(commandAction);
 
-    return [
-      replaceWithSmileyCatFix,
-      replaceWithSmileyFix,
-      replaceWithSmileyHankyFix,
-      commandAction,
-    ];
+    return actions;
   }
 
   private containsUrlToSupportedDomainWithoutCreatorId(
     document: vscode.TextDocument,
     range: vscode.Range
   ) {
-    const regex = new RegExp(
-      "((?!.*WT.mc_id=[A-Z]{1,3}-[A-Z]{1,3}-[0-9]{6,8})(?<Protocol>w+)://(?<Domain>social.technet.microsoft.com|azure.microsoft.com|techcommunity.microsoft.com|social.msdn.microsoft.com|devblogs.microsoft.com|developer.microsoft.com|channel9.msdn.com|gallery.technet.microsoft.com|cloudblogs.microsoft.com|technet.microsoft.com|docs.azure.cn|www.azure.cn|msdn.microsoft.com|blogs.msdn.microsoft.com|blogs.technet.microsoft.com|microsoft.com/handsonlabs)(?<Path>/?[w.?=%&=-@/$,]*))"
-    );
     const start = range.start;
     const line = document.lineAt(start.line);
-    const match = line.text.match(regex);
-    if (match) {
-      skillingChampion.appendLine(`Match: ${match}`);
-    } else {
-      skillingChampion.appendLine(line.text);
-    }
+    const match = line.text.match(SKILLING_CHAMPION_REGEX);
     return match !== null;
   }
 
   private createFix(
     document: vscode.TextDocument,
     range: vscode.Range,
-    emoji: string
+    creatorId: string
   ): vscode.CodeAction {
     const fix = new vscode.CodeAction(
-      `Convert to ${emoji}`,
+      `Add CreatorID ${creatorId}`,
       vscode.CodeActionKind.QuickFix
     );
-    fix.edit = new vscode.WorkspaceEdit();
-    fix.edit.replace(
-      document.uri,
-      new vscode.Range(range.start, range.start.translate(0, 2)),
-      emoji
-    );
+
+    const rangeStart = range.start;
+    const line = document.lineAt(rangeStart.line);
+    const matches = line.text.match(SKILLING_CHAMPION_REGEX);
+    if (matches) {
+      const match = matches[0];
+      const replacement =
+        match.indexOf("?") >= 0
+          ? `${match}&WT.mc_id=${creatorId}`
+          : `${match}?WT.mc_id=${creatorId}`;
+      const matchIndex = line.text.indexOf(match);
+      const matchRange = new vscode.Range(
+        rangeStart.line,
+        matchIndex,
+        rangeStart.line,
+        matchIndex + match.length
+      );
+      fix.edit = new vscode.WorkspaceEdit();
+      fix.edit.replace(document.uri, matchRange, replacement);
+    }
+
     return fix;
   }
 
@@ -181,7 +195,7 @@ export class SkillingChampionizer implements vscode.CodeActionProvider {
   }
 }
 
-export class Emojinfo implements vscode.CodeActionProvider {
+export class SkillingChampionInfo implements vscode.CodeActionProvider {
   public static readonly providedCodeActionKinds = [
     vscode.CodeActionKind.QuickFix,
   ];
@@ -194,7 +208,7 @@ export class Emojinfo implements vscode.CodeActionProvider {
   ): vscode.CodeAction[] {
     // for each diagnostic entry that has the matching `code`, create a code action command
     return context.diagnostics
-      .filter((diagnostic) => diagnostic.code === EMOJI_MENTION)
+      .filter((diagnostic) => diagnostic.code === SKILLING_CHAMPION_MENTION)
       .map((diagnostic) => this.createCommandCodeAction(diagnostic));
   }
 

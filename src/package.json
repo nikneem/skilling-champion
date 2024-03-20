@@ -37,14 +37,14 @@
       "title": "Setting for Skilling Champion",
       "order": 2,
       "properties": {
-        "conf.skillingChampion.enable": {
+        "skillingChampion.enable": {
           "type": "boolean",
           "default": true,
           "description": "Enable/disable Skilling Champion validation for URLs in MarkDown files"
         },
-        "conf.skillingChampion.creatorId": {
+        "skillingChampion.creatorId": {
           "type": "string",
-          "description": "Skilling Champion CreatorId",
+          "description": "Skilling Champion CreatorId. Split by semicolon (;) for multiple CreatorIds",
           "editPresentation": "singlelineText"
         }
       }
