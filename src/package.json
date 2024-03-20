@@ -2,7 +2,7 @@
   "name": "skillingchampion",
   "displayName": "Skilling Champion",
   "description": "Skilling Champion validates for URLs in MarkDown files and highlights URLs that don't contain a Skilling Champion CreatorId",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "EduardK",
   "repository": {
     "type": "git",

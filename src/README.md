@@ -27,9 +27,10 @@ These are the release notes for the Skilling Champion VS Code extension
 
 The very first version of the extension. This extension adds settings to VS Code and allows you to add your Akilling Champion CreatorID through quickfixes when working with MarkDown files.
 
-### 1.0.1
+### 1.0.2
 
 Updated the readme file, so the GIF animation works properly
+Updated the readme so part of the readme template is removed
 
 ## For more information
 
