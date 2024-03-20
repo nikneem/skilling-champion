@@ -6,7 +6,7 @@ This is a VS Code Extension for members of Microsoft's Skilling Champion program
 
 When writing your blog, article or other content in markdown, and you link to one of the website supported by the Microsoft Skilling Champion program, the extension will hint you and provide feedback to add your Skilling Champion Creator ID
 
-![Automatically add your skilling champion ID](images/demo-animation.gif)
+![Automatically add your skilling champion ID](src/images/demo-animation.gif)
 
 ## Extension Settings
 
@@ -27,7 +27,7 @@ These are the release notes for the Skilling Champion VS Code extension
 
 The very first version of the extension. This extension adds settings to VS Code and allows you to add your Akilling Champion CreatorID through quickfixes when working with MarkDown files.
 
-### 1.0.2
+### 1.0.3
 
 Updated the readme file, so the GIF animation works properly
 Updated the readme so part of the readme template is removed
