@@ -1,0 +1,72 @@
+{
+  "name": "skillingchampion",
+  "displayName": "Skilling Champion",
+  "description": "Skilling Champion validates for URLs in MarkDown files and highlights URLs that don't contain a Skilling Champion CreatorId",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "markdown",
+        "aliases": [
+          "MarkDown",
+          "markdown"
+        ],
+        "extensions": [
+          ".md"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "markdown",
+        "scopeName": "source.markdown",
+        "path": "./syntaxes/markdown.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "id": "skillingchampion",
+      "title": "Setting for Skilling Champion",
+      "order": 2,
+      "properties": {
+        "conf.skillingChampion.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable Skilling Champion validation for URLs in MarkDown files"
+        },
+        "conf.skillingChampion.creatorId": {
+          "type": "string",
+          "description": "Skilling Champion CreatorId",
+          "editPresentation": "singlelineText"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.87.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9"
+  }
+}
