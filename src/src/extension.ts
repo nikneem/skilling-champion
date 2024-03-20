@@ -84,10 +84,13 @@ export class SkillingChampionizer implements vscode.CodeActionProvider {
         actions.push(this.createFix(document, range, id));
       });
     }
+
     const commandAction = this.createCommand();
     actions.push(commandAction);
 
-    return actions;
+    return actions.sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
   }
 
   private containsUrlToSupportedDomainWithoutCreatorId(
