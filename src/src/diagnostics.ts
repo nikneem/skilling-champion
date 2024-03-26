@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 export const SKILLING_CHAMPION_MENTION = "skillingchampion_mention";
 export const SKILLING_CHAMPION_REGEX =
-  /((?!.*WT.mc_id=[A-Z0-9]{1,5}-[A-Z]{1,3}-[0-9]{6,8})(?<Protocol>\w{2,6}):\/\/(?<Domain>social.technet.microsoft.com|azure.microsoft.com|techcommunity.microsoft.com|social.msdn.microsoft.com|devblogs.microsoft.com|developer.microsoft.com|channel9.msdn.com|gallery.technet.microsoft.com|cloudblogs.microsoft.com|technet.microsoft.com|docs.azure.cn|www.azure.cn|msdn.microsoft.com|blogs.msdn.microsoft.com|blogs.technet.microsoft.com|microsoft.com\/handsonlabs)(?<Path>\/?[\w.?=%&=\-@\/$,]*))/;
+  /((?!.*WT.mc_id=[A-Z0-9]{1,5}-[A-Z]{1,3}-[0-9]{6,8})(?<Protocol>\w{2,6}):\/\/(?<Domain>social.technet.microsoft.com|docs.microsoft.com|learn.microsoft.com|azure.microsoft.com|techcommunity.microsoft.com|social.msdn.microsoft.com|devblogs.microsoft.com|developer.microsoft.com|channel9.msdn.com|gallery.technet.microsoft.com|cloudblogs.microsoft.com|technet.microsoft.com|docs.azure.cn|www.azure.cn|msdn.microsoft.com|blogs.msdn.microsoft.com|blogs.technet.microsoft.com|microsoft.com\/handsonlabs|csc.docs.microsoft.com)(?<Path>\/?[\w.?=%&=\-@\/$,]*))/;
 
 /**
  * Analyzes the text document for problems.

@@ -29,8 +29,12 @@ The very first version of the extension. This extension adds settings to VS Code
 
 ### 1.0.3
 
-Updated the readme file, so the GIF animation works properly
-Updated the readme so part of the readme template is removed
+- Updated the readme file, so the GIF animation works properly
+- Updated the readme so part of the readme template is removed
+
+### 1.0.4
+
+- Correction in the URLs to add a skilling champion CreatorId to
 
 ## For more information
 
